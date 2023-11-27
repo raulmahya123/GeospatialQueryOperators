@@ -2,9 +2,10 @@ package gq
 
 import (
 	"context"
-	"fmt"
+	"log"
 
-	"github.com/petapedia/geoquery/models"
+	"github.com/raulmahya123/GeospatialQueryOperators/models"
+
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 )
@@ -13,21 +14,22 @@ import (
 //		type: "<GeoJSON object type>",
 //		coordinates: [ <coordinates> ]
 //	 }
-func Geometry(mongoconn *mongo.Database, long float64, lat float64) (namalokasi string) {
-	lokasicollection := mongoconn.Collection("petapedia")
+func Geometry(mongoconn *mongo.Database, coordinates [][][]float64) (namalokasi string) {
+	lokasicollection := mongoconn.Collection("geometry")
 	filter := bson.M{
-		"batas": bson.M{
-			"$geometry": bson.M{
-				"type":        "Point",
-				"coordinates": []float64{long, lat},
+		"geometry": bson.M{
+			"$geoWithin": bson.M{
+				"$geometry": bson.M{
+					"type":        "Polygon",
+					"coordinates": coordinates,
+				},
 			},
 		},
 	}
 	var lokasi models.Lokasi
 	err := lokasicollection.FindOne(context.TODO(), filter).Decode(&lokasi)
 	if err != nil {
-		fmt.Printf("GetLokasi: %v\n", err)
+		log.Printf("GeoWithin: %v\n", err)
 	}
-	return lokasi.Nama
-
+	return lokasi.Properties.Name
 }

@@ -29,7 +29,7 @@ func PostGeoIntersects(w http.ResponseWriter, r *http.Request) {
 // 	var resp atmessage.Response
 // 	json.NewDecoder(r.Body).Decode(&msg)
 // 	if r.Header.Get("Secret") == config.EndpointSecret {
-// 		resp.Response = gq.GeoWithin(config.Mongocon, msg.Longitude, msg.Latitude)
+// 		resp.Response = gq.GeoWithin(config.Mongocon, msg.coordinates)
 // 	} else {
 // 		resp.Response = "Secret Salah"
 // 	}

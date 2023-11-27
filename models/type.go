@@ -68,3 +68,19 @@ type LongLat struct {
 	Latitude  float64 `json:"latitude"`
 	Longitude float64 `json:"longitude"`
 }
+
+type Lokasii struct {
+	ID         primitive.ObjectID `bson:"_id,omitempty"`
+	Properties Namee              `bson:"properties,omitempty"`
+	Geometry   Geometryy          `bson:"geometry,omitempty"`
+	Kategori   string             `bson:"kategori,omitempty"`
+}
+
+type Namee struct {
+	Name string `bson:"name,omitempty"`
+}
+
+type Geometryy struct {
+	Type        string      `bson:"type,omitempty"`
+	Coordinates [][]float64 `bson:"coordinates,omitempty"`
+}
