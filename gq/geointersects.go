@@ -9,8 +9,23 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
+// {
+// 	"type": "Feature",
+// 	"geometry": {
+// 	  "type": "Point",
+// 	  "coordinates": [
+// 		107.66152981234228,
+// 		-6.916179557176008
+// 	  ]
+// 	},
+// 	"properties": {
+// 	  "name": "Bahari Selera Nusantara"
+// 	}
+//   }
+// }
+
 func GeoIntersects(mongoconn *mongo.Database, long float64, lat float64) (namalokasi string) {
-	lokasicollection := mongoconn.Collection("lokasi")
+	lokasicollection := mongoconn.Collection("petapedia")
 	filter := bson.M{
 		"batas": bson.M{
 			"$geoIntersects": bson.M{
