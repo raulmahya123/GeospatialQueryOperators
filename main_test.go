@@ -4,53 +4,39 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/petapedia/geoquery/helper"
 	"github.com/raulmahya123/GeospatialQueryOperators/gq"
+	"github.com/raulmahya123/GeospatialQueryOperators/helper"
 )
 
-func TestUpdateGetData(t *testing.T) {
-	mconn := helper.SetConnection("mongodb+srv://raulgantengbanget:0nGCVlPPoCsXNhqG@cluster0.9ofhjs3.mongodb.net/?retryWrites=true&w=majority", "petapedia")
-	datagedung := gq.GeoIntersects(mconn, 107.66417814690686, -6.901637720654366)
+// func TestUpdateGetData(t *testing.T) {
+// 	mconn := helper.SetConnection("mongodb+srv://raulgantengbanget:0nGCVlPPoCsXNhqG@cluster0.9ofhjs3.mongodb.net/?retryWrites=true&w=majority", "petapedia")
+// 	datagedung := gq.GeoIntersects(mconn, 107.66417814690686, -6.901637720654366)
+// 	fmt.Println(datagedung)
+// }
+
+func TestGeoWithin(t *testing.T) {
+	mconn := helper.SetConnection("mongodb+srv://raulgantengbanget:0nGCVlPPoCsXNhqG@cluster0.9ofhjs3.mongodb.net/?retryWrites=true&w=majority", "petapediaaa")
+	coordinates := [][][]float64{
+		{
+			{103.62052506248301,
+				-1.6105001000148462},
+			{103.62061804929925,
+				-1.6106710617710007},
+			{103.62071435707355,
+				-1.6106229269090022},
+			{103.62061472834131,
+				-1.6104420062116702},
+			{103.62052506248301,
+				-1.6105001000148462},
+		},
+	}
+
+	datagedung := gq.GeoWithin(mconn, coordinates)
 	fmt.Println(datagedung)
 }
 
-/**
-* Paste one or more documents here
- */
-// {
-// 	"type": "Feature",
-// 	"properties": {
-// 	  "name": "sd negeri 28"
-// 	},
-// 	"geometry": {
-// 	  "coordinates": [
-// 		[
-// 		  [
-// 			103.626550656458,
-// 			-1.6150541661371705
-// 		  ],
-// 		  [
-// 			103.62633759669836,
-// 			-1.615292034441552
-// 		  ],
-// 		  [
-// 			103.62602492459337,
-// 			-1.6157235163933308
-// 		  ],
-// 		  [
-// 			103.62610240086707,
-// 			-1.6157788345851287
-// 		  ],
-// 		  [
-// 			103.62662536571582,
-// 			-1.6150790593407436
-// 		  ],
-// 		  [
-// 			103.626550656458,
-// 			-1.6150541661371705
-// 		  ]
-// 		]
-// 	  ],
-// 	  "type": "Polygon"
-// 	}
-//   }
+// func TestBox(t *testing.T) {
+// 	mconn := helper.SetConnection("mongodb://localhost:27017", "petapedia")
+// 	datagedung := gq.Box(mconn, 107.64914828236414, -6.912194782091035, 107.64914828236414, -6.912194782091035)
+// 	fmt.Println(datagedung)
+// }

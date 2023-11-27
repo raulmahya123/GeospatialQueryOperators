@@ -4,9 +4,8 @@ import "go.mongodb.org/mongo-driver/bson/primitive"
 
 type GeometryPolygon struct {
 	Coordinates [][][]float64 `json:"coordinates" bson:"coordinates"`
-	Type        string        `json:"type" bson:"type"`
+	Type        string        `json:"type,omitempty" bson:"type,omitempty"`
 }
-
 type GeometryLineString struct {
 	Coordinates [][]float64 `json:"coordinates" bson:"coordinates"`
 	Type        string      `json:"type" bson:"type"`
@@ -55,9 +54,17 @@ type Credential struct {
 	Message string `json:"message,omitempty" bson:"message,omitempty"`
 }
 
-type Lokasi struct { //lokasi yang bisa melakukan presensi
-	ID       primitive.ObjectID `bson:"_id,omitempty"`
-	Nama     string             `bson:"nama,omitempty"`
-	Batas    Geometry           `bson:"batas,omitempty"`
-	Kategori string             `bson:"kategori,omitempty"`
+type Lokasi struct {
+	ID         primitive.ObjectID `bson:"_id,omitempty"`
+	Properties Name               ` bson:"properties,omitempty"`
+	Geometry   Geometry           `bson:"geometry,omitempty"`
+	Kategori   string             `bson:"kategori,omitempty"`
+}
+type Name struct {
+	Name string `bson:"name,omitempty"`
+}
+
+type LongLat struct {
+	Latitude  float64 `json:"latitude"`
+	Longitude float64 `json:"longitude"`
 }
