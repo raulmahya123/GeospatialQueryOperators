@@ -10,14 +10,16 @@ import (
 )
 
 func NearSpehere(mongoconn *mongo.Database, long float64, lat float64) (namalokasi string) {
-	lokasicollection := mongoconn.Collection("petapedia")
+	lokasicollection := mongoconn.Collection("nearspehere")
 	filter := bson.M{
-		"batas": bson.M{
+		"location": bson.M{
 			"$nearSphere": bson.M{
 				"$geometry": bson.M{
 					"type":        "Point",
-					"coordinates": []float64{long, lat},
+					"coordinates": []float64{-73.9667, 40.78},
 				},
+				"$minDistance": 1000,
+				"$maxDistance": 5000,
 			},
 		},
 	}

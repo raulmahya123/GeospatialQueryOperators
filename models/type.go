@@ -84,3 +84,8 @@ type Geometryy struct {
 	Type        string      `bson:"type,omitempty"`
 	Coordinates [][]float64 `bson:"coordinates,omitempty"`
 }
+
+type Pesan struct {
+	Status  bool   `json:"status" bson:"status"`
+	Message string `json:"message" bson:"message"`
+}

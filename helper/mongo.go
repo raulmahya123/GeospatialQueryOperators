@@ -39,6 +39,28 @@ func SetConnection2dsphereTest(mongoenv, dbname string) *mongo.Database {
 	return db
 }
 
+func SetConnection2dsphereTestPoint(mongoenv, dbname string) *mongo.Database {
+	var DBmongoinfo = atdb.DBInfo{
+		DBString: mongoenv,
+		DBName:   dbname,
+	}
+	db := atdb.MongoConnect(DBmongoinfo)
+
+	// Create a geospatial index if it doesn't exist
+	indexModel := mongo.IndexModel{
+		Keys: bson.D{
+			{Key: "geometry", Value: "2dsphere"},
+		},
+	}
+
+	_, err := db.Collection("nearspehere").Indexes().CreateOne(context.TODO(), indexModel)
+	if err != nil {
+		log.Printf("Error creating geospatial index: %v\n", err)
+	}
+
+	return db
+}
+
 func SetConnection2dsphereTestGeo(mongoenv, dbname string) *mongo.Database {
 	var DBmongoinfo = atdb.DBInfo{
 		DBString: mongoenv,
