@@ -12,20 +12,29 @@ import (
 
 func Polygon(mongoconn *mongo.Database, coordinates [][][]float64) (namalokasi string) {
 	lokasicollection := mongoconn.Collection("polygon")
+
+	// Log coordinates for debugging
+	fmt.Println("Coordinates:", coordinates)
+
 	filter := bson.M{
-		"polygon": bson.M{
+		"location": bson.M{
 			"$geoWithin": bson.M{
-				"$polygon": coordinates,
+				"$geometry": bson.M{
+					"type":        "Polygon",
+					"coordinates": coordinates,
+				},
 			},
 		},
 	}
 
-	fmt.Println(filter)
+	fmt.Println("Filter:", filter)
 
 	var lokasi models.Lokasi
 	err := lokasicollection.FindOne(context.TODO(), filter).Decode(&lokasi)
 	if err != nil {
 		log.Printf("Polygon: %v\n", err)
+		return ""
 	}
+
 	return lokasi.Properties.Name
 }

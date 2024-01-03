@@ -19,7 +19,7 @@ func NearSpehere(mongoconn *mongo.Database, long float64, lat float64) (namaloka
 					"coordinates": []float64{-73.9667, 40.78},
 				},
 				"$minDistance": 1000,
-				"$maxDistance": 5000,
+				"$maxDistance": 2000,
 			},
 		},
 	}
