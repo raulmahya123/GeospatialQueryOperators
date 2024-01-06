@@ -5,8 +5,6 @@ go 1.19
 require (
 	github.com/GoogleCloudPlatform/functions-framework-go v1.8.0
 	github.com/aiteung/atdb v0.1.3
-	github.com/aiteung/atmessage v0.1.0
-	github.com/aiteung/module v0.1.0
 	github.com/petapedia/geoquery v0.0.2
 	go.mongodb.org/mongo-driver v1.13.0
 	golang.org/x/crypto v0.15.0
@@ -14,6 +12,8 @@ require (
 
 require (
 	filippo.io/edwards25519 v1.0.0 // indirect
+	github.com/aiteung/atmessage v0.1.0 // indirect
+	github.com/aiteung/module v0.1.0 // indirect
 	github.com/aiteung/musik v0.0.5 // indirect
 	github.com/cloudevents/sdk-go/v2 v2.14.0 // indirect
 	github.com/go-sql-driver/mysql v1.7.1 // indirect

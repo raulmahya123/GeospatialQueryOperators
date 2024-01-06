@@ -89,3 +89,17 @@ type Pesan struct {
 	Status  bool   `json:"status" bson:"status"`
 	Message string `json:"message" bson:"message"`
 }
+
+type GeoBorder struct {
+	Type        string        `bson:"type"`
+	Coordinates [][][]float64 `bson:"coordinates"`
+}
+
+type LocationData struct {
+	ID          string    `bson:"_id"`
+	Province    string    `bson:"province"`
+	District    string    `bson:"district"`
+	SubDistrict string    `bson:"sub_district"`
+	Village     string    `bson:"village"`
+	Border      GeoBorder `bson:"border"`
+}

@@ -1,11 +1,15 @@
 package geoquery
 
 import (
+	"context"
 	"fmt"
 	"testing"
 
 	"github.com/raulmahya123/GeospatialQueryOperators/gq"
 	"github.com/raulmahya123/GeospatialQueryOperators/helper"
+	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
+	"go.mongodb.org/mongo-driver/mongo/readpref"
 )
 
 func TestUpdateGetData(t *testing.T) {
@@ -91,6 +95,39 @@ func TestPolygon(t *testing.T) {
 	if result != expectedResult {
 		t.Errorf("Expected '%s', got '%s'", expectedResult, result)
 	}
+}
+
+func TestGeoBoxQuery(t *testing.T) {
+	// Connect to MongoDB (replace with your MongoDB connection details)
+	client, err := mongo.Connect(context.TODO(), options.Client().ApplyURI("mongodb+srv://raulgantengbanget:0nGCVlPPoCsXNhqG@cluster0.9ofhjs3.mongodb.net/?retryWrites=true&w=majority"))
+	if err != nil {
+		t.Fatalf("Error connecting to MongoDB: %v", err)
+	}
+	defer client.Disconnect(context.TODO())
+
+	// Check if MongoDB is reachable
+	err = client.Ping(context.TODO(), readpref.Primary())
+	if err != nil {
+		t.Fatalf("Error pinging MongoDB: %v", err)
+	}
+
+	// Define lowerLeft and upperRight coordinates for testing
+	lowerLeft := []float64{103.6205, -1.6106}
+	upperRight := []float64{103.6207, -1.6104}
+
+	// Call the GeoBoxQuery function being tested
+	results, err := gq.GeoBoxQuery(client.Database("box"), lowerLeft, upperRight)
+
+	// Check for errors
+	if err != nil {
+		t.Fatalf("Error in GeoBoxQuery: %v", err)
+	}
+
+	// Print or use the results as needed for testing assertions
+	fmt.Println("Results:", results)
+
+	// Add your assertions here based on the expected results
+	// For example, you can check if the length of the results is as expected
 }
 
 // func TestPolygon(t *testing.T) {
